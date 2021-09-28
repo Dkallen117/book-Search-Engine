@@ -1,5 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
+import React from "react";
+import {
+  Jumbotron,
+  Container,
+  CardColumns,
+  Card,
+  Button,
+} from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 
 import Auth from "../utils/auth";
@@ -31,6 +37,7 @@ const SavedBooks = () => {
       console.error(error);
     }
   };
+
   // if data isn't here yet, say so
   if (loading) {
     return <h2>LOADING...</h2>;
@@ -38,7 +45,6 @@ const SavedBooks = () => {
 
   const savedBookIds = userData.savedBooks.map((book) => book.bookId);
   saveBookIds(savedBookIds);
-
 
   return (
     <>
