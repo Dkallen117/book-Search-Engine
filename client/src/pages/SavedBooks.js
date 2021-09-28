@@ -1,50 +1,46 @@
-import React from "react";
-import {
-  Jumbotron,
-  Container,
-  CardColumns,
-  Card,
-  Button,
-} from "react-bootstrap";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import React, { useState, useEffect } from 'react';
+import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 
-import Auth from "../utils/auth";
-import { removeBookId, saveBookIds } from "../utils/localStorage";
-import { GET_ME } from "../utils/queries";
-import { REMOVE_BOOK } from "../utils/mutations";
+import Auth from '../utils/auth';
+import { removeBookId } from '../utils/localStorage';
+import { useQuery, useMutation } from '@apollo/client';
+import { GET_ME } from '../utils/queries';
+import { REMOVE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
+ 
   const { loading, data } = useQuery(GET_ME);
   const userData = data?.me || [];
 
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
+ 
 
+  
   const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
+
     if (!token) {
       return false;
     }
+
     try {
       const response = await removeBook({
-        variables: { bookId: bookId },
+        variables: {bookId: bookId}
       });
-
       if (!response) {
-        throw new Error("something went wrong!");
+        throw new Error('something went wrong!');
       }
-      removeBookId(bookId);
+      removeBookId(bookId)
+      window.location.reload();
     } catch (err) {
-      console.error(error);
+      console.error(err);
     }
   };
 
-  // if data isn't here yet, say so
+  
   if (loading) {
     return <h2>LOADING...</h2>;
   }
-
-  const savedBookIds = userData.savedBooks.map((book) => book.bookId);
-  saveBookIds(savedBookIds);
 
   return (
     <>
