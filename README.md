@@ -50,6 +50,7 @@ Utilizing the MERN stack (MongoDB, Express, React, and Node.js), this Book Searc
 
 [Live Application](https://book-search-engine-mern-2021.herokuapp.com/)
 
+![](example/Google_Book_Search.gif)
 
 ## License ![GitHub](https://img.shields.io/badge/License%3A-MIT-green.svg)
 
